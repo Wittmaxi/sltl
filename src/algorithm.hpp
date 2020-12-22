@@ -3,7 +3,7 @@
 namespace sltl
 {
     /*
-     *  all_of Test condition on all elements in range.
+     *  all_of: Test condition on all elements in range.
      */
     template <class InputIterator, class UnaryPredicate>
           bool all_of (InputIterator first, InputIterator last, UnaryPredicate pred) {
@@ -13,6 +13,20 @@ namespace sltl
                   }
               }
               return true;
+          }
+
+
+    /*
+     *  any_of: Test if any element in range fulfills condition
+     */
+    template <class InputIterator, class UnaryPredicate>
+          bool any_of (InputIterator first, InputIterator last, UnaryPredicate pred) {
+              for (;first != last;first++) {
+                  if (pred(*first)) {
+                      return true;
+                  }
+              }
+              return false;
           }
 
 

@@ -17,11 +17,19 @@ void require (bool (*f)() , std::string throw_text) {
         std::cerr << ex.what() << "\nFatal error" << std::endl;
     }
 }
+
 bool test_all_of(){
     std::array<int,8> foo = {3,5,7,11,13,17,19,23};
 
     return std::all_of(foo.begin(), foo.end(), [](int i){return i%2;})
         == sltl::all_of(foo.begin(), foo.end(), [](int i){return i%2;});
+}
+
+bool test_any_of(){
+    std::array<int,7> foo = {0,1,-1,3,-3,5,-5};
+
+    return std::all_of(foo.begin(), foo.end(), [](int i){return i<0;})
+        == sltl::all_of(foo.begin(), foo.end(), [](int i){return i<0;});
 }
 
 bool test_count(){
