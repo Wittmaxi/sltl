@@ -28,8 +28,41 @@ bool test_all_of(){
 bool test_any_of(){
     std::array<int,7> foo = {0,1,-1,3,-3,5,-5};
 
-    return std::all_of(foo.begin(), foo.end(), [](int i){return i<0;})
-        == sltl::all_of(foo.begin(), foo.end(), [](int i){return i<0;});
+    return std::any_of(foo.begin(), foo.end(), [](int i){return i<0;})
+        == sltl::any_of(foo.begin(), foo.end(), [](int i){return i<0;});
+}
+
+bool test_none_of(){
+    std::array<int,8> foo = {1,2,4,8,16,32,64,128};
+
+    return std::none_of(foo.begin(), foo.end(), [](int i){return i<0;})
+        == sltl::none_of(foo.begin(), foo.end(), [](int i){return i<0;});
+}
+
+void test_args_for_each_fn(int i) {  // function:
+    std::cout << ' ' << i;
+}
+
+struct test_args_for_each_struct {           // function object type:
+    void operator() (int i) {std::cout << ' ' << i;}
+} test_args_for_each_object;
+
+bool test_for_each() {
+
+    std::vector<int> myvector;
+    myvector.push_back(10);
+    myvector.push_back(20);
+    myvector.push_back(30);
+
+    std::cout << "myvector contains:";
+    sltl::for_each (myvector.begin(), myvector.end(), test_args_for_each_fn);
+    std::cout << '\n';
+
+    // or:
+    std::cout << "myvector contains:";
+    sltl::for_each (myvector.begin(), myvector.end(), test_args_for_each_object);
+    std::cout << '\n';
+    return true;
 }
 
 bool test_count(){
@@ -40,6 +73,9 @@ bool test_count(){
 int main() {
     require(test_count, std::string("test sltl::count fault"));
     require(test_all_of, std::string("test sltl::all_of fault"));
+    require(test_any_of, std::string("test sltl::any_of fault"));
+    require(test_none_of, std::string("test sltl::none_of fault"));
+    require(test_for_each, std::string("test sltl::for_each fault"));
     std::cout << "Run all algorithm test clear!" << std::endl;
 }
 

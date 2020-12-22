@@ -15,9 +15,8 @@ namespace sltl
               return true;
           }
 
-
     /*
-     *  any_of: Test if any element in range fulfills condition
+     *  any_of: Test if any element in range fulfills condition.
      */
     template <class InputIterator, class UnaryPredicate>
           bool any_of (InputIterator first, InputIterator last, UnaryPredicate pred) {
@@ -29,6 +28,29 @@ namespace sltl
               return false;
           }
 
+    /*
+     *  none_of: Test if no elements fulfill condition.
+     */
+    template <class InputIterator, class UnaryPredicate>
+          bool none_of (InputIterator first, InputIterator last, UnaryPredicate pred) {
+              for (;first != last;first++) {
+                  if (pred(*first)) {
+                      return false;
+                  }
+              }
+              return true;
+          }
+
+    /*
+     *  for_each: Apply function to range.
+     */
+    template <class InputIterator, class Function>
+           Function for_each (InputIterator first, InputIterator last, Function fn) {
+               for (;first != last;first++) {
+                   fn(*first);
+               }
+               return fn;
+           }
 
     /*
      *  count: Count appearances of value in range.
